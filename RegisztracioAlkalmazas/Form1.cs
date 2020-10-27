@@ -16,5 +16,10 @@ namespace RegisztracioAlkalmazas
         {
             InitializeComponent();
         }
+
+        private void btnBetoltes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

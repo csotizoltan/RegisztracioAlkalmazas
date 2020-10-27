@@ -173,6 +173,7 @@
             this.btnBetoltes.TabIndex = 13;
             this.btnBetoltes.Text = "Betöltés";
             this.btnBetoltes.UseVisualStyleBackColor = true;
+            this.btnBetoltes.Click += new System.EventHandler(this.btnBetoltes_Click);
             // 
             // Form1
             // 
