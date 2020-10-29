@@ -31,17 +31,19 @@
             this.lblNev = new System.Windows.Forms.Label();
             this.txtNev = new System.Windows.Forms.TextBox();
             this.lblSzulDatum = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerSzuDatum = new System.Windows.Forms.DateTimePicker();
             this.lblNem = new System.Windows.Forms.Label();
             this.rdoFerfi = new System.Windows.Forms.RadioButton();
             this.rdoNo = new System.Windows.Forms.RadioButton();
             this.lblKHobbi = new System.Windows.Forms.Label();
             this.listHobbi = new System.Windows.Forms.ListBox();
             this.lblUjHobbi = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtUjHobbi = new System.Windows.Forms.TextBox();
             this.btnHozzad = new System.Windows.Forms.Button();
             this.btnMentes = new System.Windows.Forms.Button();
             this.btnBetoltes = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // lblNev
@@ -71,18 +73,18 @@
             this.lblSzulDatum.TabIndex = 2;
             this.lblSzulDatum.Text = "Szül. dátum";
             // 
-            // dateTimePicker1
+            // dateTimePickerSzuDatum
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(157, 81);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 3;
+            this.dateTimePickerSzuDatum.Location = new System.Drawing.Point(157, 81);
+            this.dateTimePickerSzuDatum.Name = "dateTimePickerSzuDatum";
+            this.dateTimePickerSzuDatum.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerSzuDatum.TabIndex = 3;
             // 
             // lblNem
             // 
             this.lblNem.AutoSize = true;
             this.lblNem.Font = new System.Drawing.Font("Calibri", 12.096F);
-            this.lblNem.Location = new System.Drawing.Point(13, 148);
+            this.lblNem.Location = new System.Drawing.Point(13, 153);
             this.lblNem.Name = "lblNem";
             this.lblNem.Size = new System.Drawing.Size(59, 26);
             this.lblNem.TabIndex = 4;
@@ -125,9 +127,13 @@
             // 
             this.listHobbi.FormattingEnabled = true;
             this.listHobbi.ItemHeight = 16;
+            this.listHobbi.Items.AddRange(new object[] {
+            "Úszás",
+            "Horgászat",
+            "Futás"});
             this.listHobbi.Location = new System.Drawing.Point(530, 60);
             this.listHobbi.Name = "listHobbi";
-            this.listHobbi.Size = new System.Drawing.Size(120, 148);
+            this.listHobbi.Size = new System.Drawing.Size(132, 148);
             this.listHobbi.TabIndex = 8;
             // 
             // lblUjHobbi
@@ -140,40 +146,51 @@
             this.lblUjHobbi.TabIndex = 9;
             this.lblUjHobbi.Text = "Új hobbi";
             // 
-            // textBox1
+            // txtUjHobbi
             // 
-            this.textBox1.Location = new System.Drawing.Point(530, 237);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 22);
-            this.textBox1.TabIndex = 10;
+            this.txtUjHobbi.Location = new System.Drawing.Point(530, 237);
+            this.txtUjHobbi.Name = "txtUjHobbi";
+            this.txtUjHobbi.Size = new System.Drawing.Size(132, 22);
+            this.txtUjHobbi.TabIndex = 10;
             // 
             // btnHozzad
             // 
-            this.btnHozzad.Location = new System.Drawing.Point(557, 282);
+            this.btnHozzad.Location = new System.Drawing.Point(569, 285);
             this.btnHozzad.Name = "btnHozzad";
-            this.btnHozzad.Size = new System.Drawing.Size(93, 32);
+            this.btnHozzad.Size = new System.Drawing.Size(93, 29);
             this.btnHozzad.TabIndex = 11;
             this.btnHozzad.Text = "Hozzáad";
             this.btnHozzad.UseVisualStyleBackColor = true;
+            this.btnHozzad.Click += new System.EventHandler(this.btnHozzad_Click);
             // 
             // btnMentes
             // 
-            this.btnMentes.Location = new System.Drawing.Point(439, 375);
+            this.btnMentes.Location = new System.Drawing.Point(447, 375);
             this.btnMentes.Name = "btnMentes";
             this.btnMentes.Size = new System.Drawing.Size(95, 40);
             this.btnMentes.TabIndex = 12;
             this.btnMentes.Text = "Mentés";
             this.btnMentes.UseVisualStyleBackColor = true;
+            this.btnMentes.Click += new System.EventHandler(this.btnMentes_Click);
             // 
             // btnBetoltes
             // 
-            this.btnBetoltes.Location = new System.Drawing.Point(557, 375);
+            this.btnBetoltes.Location = new System.Drawing.Point(567, 375);
             this.btnBetoltes.Name = "btnBetoltes";
             this.btnBetoltes.Size = new System.Drawing.Size(95, 40);
             this.btnBetoltes.TabIndex = 13;
             this.btnBetoltes.Text = "Betöltés";
             this.btnBetoltes.UseVisualStyleBackColor = true;
             this.btnBetoltes.Click += new System.EventHandler(this.btnBetoltes_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.FileName = "szemelyi_adatok";
+            this.saveFileDialog1.Filter = "Szöveg fájl (*.txt)|*.txt|Minden fájl (*.*)|*.*\"";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Szöveg fájl (*.txt)|*.txt|Minden fájl (*.*)|*.*\"";
             // 
             // Form1
             // 
@@ -183,14 +200,14 @@
             this.Controls.Add(this.btnBetoltes);
             this.Controls.Add(this.btnMentes);
             this.Controls.Add(this.btnHozzad);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtUjHobbi);
             this.Controls.Add(this.lblUjHobbi);
             this.Controls.Add(this.listHobbi);
             this.Controls.Add(this.lblKHobbi);
             this.Controls.Add(this.rdoNo);
             this.Controls.Add(this.rdoFerfi);
             this.Controls.Add(this.lblNem);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePickerSzuDatum);
             this.Controls.Add(this.lblSzulDatum);
             this.Controls.Add(this.txtNev);
             this.Controls.Add(this.lblNev);
@@ -206,17 +223,19 @@
         private System.Windows.Forms.Label lblNev;
         private System.Windows.Forms.TextBox txtNev;
         private System.Windows.Forms.Label lblSzulDatum;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerSzuDatum;
         private System.Windows.Forms.Label lblNem;
         private System.Windows.Forms.RadioButton rdoFerfi;
         private System.Windows.Forms.RadioButton rdoNo;
         private System.Windows.Forms.Label lblKHobbi;
         private System.Windows.Forms.ListBox listHobbi;
         private System.Windows.Forms.Label lblUjHobbi;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtUjHobbi;
         private System.Windows.Forms.Button btnHozzad;
         private System.Windows.Forms.Button btnMentes;
         private System.Windows.Forms.Button btnBetoltes;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
