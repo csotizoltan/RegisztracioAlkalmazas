@@ -19,6 +19,7 @@ namespace RegisztracioAlkalmazas
         }
 
         private List<Szemely> szemelyekList = new List<Szemely>();
+
         static bool valid;
 
 
@@ -146,6 +147,7 @@ namespace RegisztracioAlkalmazas
             szemelyekList.Add(ujSzemely);
 
 
+
             // ------- Fájlba írás -------
 
             if (valid == true)
@@ -156,12 +158,16 @@ namespace RegisztracioAlkalmazas
                     {
                         foreach (Szemely item in szemelyekList)
                         {
-                            sw.Write(String.Format("{0};{1};{2};{3};", item.Nev, item.SzulDatum, item.Nem, item.Hobbi));
+                            sw.WriteLine(item.Nev); // sw.WriteLine(item.Nev + ";");
+                            sw.WriteLine(item.SzulDatum);
+                            sw.WriteLine(item.Nem);
+                            sw.WriteLine(item.Hobbi);
                         }
+
 
                         foreach (var item in listHobbi.Items)
                         {
-                            sw.Write(String.Format("--{0};", item));
+                            sw.WriteLine("HobbiLista: " + item); //sw.WriteLine("HobbiLista: " + item + ";");
                         }
 
                         MessageBox.Show("Sikeres mentés!");
@@ -184,6 +190,49 @@ namespace RegisztracioAlkalmazas
             {
                 MessageBox.Show("Nem választott ki fájlt, így nem fog betöltődni!");
                 return;
+            }
+
+
+            try
+            {
+                using (var sr = new StreamReader(openFileDialog1.FileName))
+                {
+                    listHobbi.Items.Clear();
+                    txtNev.Clear();
+                    rdoFerfi.Checked = false;
+                    rdoNo.Checked = false;
+
+                    txtNev.Text = sr.ReadLine();
+                    dateTimePickerSzuDatum.Value = DateTime.Parse(sr.ReadLine());
+
+                    if (sr.ReadLine() == "ferfi")
+                    {
+                        rdoFerfi.Checked = true;
+                    }
+
+                    else
+                    {
+                        rdoNo.Checked = true;
+                    }
+
+                    while (!sr.EndOfStream)
+                    {
+                        string sor = sr.ReadLine();
+
+                        if (sor.StartsWith("HobbiLista: "))
+                        {
+                            string asd = sor.Substring(12);
+                            listHobbi.Items.Add(asd);
+                            listHobbi.SelectedItem = asd;
+                        }
+                    }
+                    
+                    MessageBox.Show("Sikeres fájl beolvasás!");
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Hiba a beolvasás során!");
             }
         }
     }
