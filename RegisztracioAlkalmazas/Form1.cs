@@ -18,6 +18,12 @@ namespace RegisztracioAlkalmazas
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dateTimePickerSzuDatum.Format = DateTimePickerFormat.Custom;
+        }
+
+
         private List<Szemely> szemelyekList = new List<Szemely>();
 
         static bool valid;
@@ -154,7 +160,7 @@ namespace RegisztracioAlkalmazas
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, true, Encoding.UTF8))
+                    using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName)) //true, Encoding.UTF8
                     {
                         foreach (Szemely item in szemelyekList)
                         {
@@ -215,6 +221,8 @@ namespace RegisztracioAlkalmazas
                         rdoNo.Checked = true;
                     }
 
+                    
+
                     while (!sr.EndOfStream)
                     {
                         string sor = sr.ReadLine();
@@ -233,6 +241,10 @@ namespace RegisztracioAlkalmazas
             catch (IOException ex)
             {
                 MessageBox.Show("Hiba a beolvasás során!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba a fájl feldolgozása közben!");
             }
         }
     }
